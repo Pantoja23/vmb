@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VMB Heating & Cooling | Pro Service Elite</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-blue: #00d2ff;
+            --neon-orange: #ff4e00;
+            --whatsapp-green: #25d366;
+            --dark-bg: #05070a;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--dark-bg); color: #fff; overflow-x: hidden; }
+
+        /* --- HEADER Y NAV --- */
+        header { position: fixed; top: 0; width: 100%; z-index: 1000; }
+
+        nav {
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            background: rgba(5, 7, 10, 0.9);
+            border-bottom: 1px solid var(--glass-border);
+            min-height: 65px;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-container img { height: 40px; filter: drop-shadow(0 0 8px var(--neon-blue)); }
+        .logo-text h1 { font-size: 1.4rem; margin-bottom: -4px; line-height: 1; }
+        .logo-text span { font-size: 0.75rem; color: var(--neon-blue); font-weight: 700; }
+
+        /* --- CINTILLA DE DESCUENTO --- */
+        .promo-ribbon {
+            background: #cc0000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            box-shadow: 0 4px 15px rgba(204, 0, 0, 0.4);
+            display: none; /* Se activa por Script */
+        }
+
+        /* Espaciador para no empalmar */
+        .nav-spacer { height: 70px; transition: 0.3s; } 
+
+        /* --- BOTÓN WHATSAPP --- */
+        .whatsapp-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--whatsapp-green); color: white;
+            width: 65px; height: 65px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 32px; z-index: 2000;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
+            text-decoration: none; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .whatsapp-btn:hover { transform: scale(1.1) rotate(15deg); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 75vh;
+            display: flex; align-items: center; justify-content: center;
+            background: linear-gradient(rgba(5,7,10,0.3), var(--dark-bg)), url('img/hero-hvac.jpg') center/cover;
+        }
+        .hero-card {
+            background: var(--glass); backdrop-filter: blur(20px);
+            padding: 40px; border-radius: 40px; border: 1px solid var(--glass-border);
+            text-align: center; max-width: 800px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .btn-pro {
+            padding: 18px 35px; background: #fff; color: #000;
+            text-decoration: none; font-weight: 900; border-radius: 15px;
+            text-transform: uppercase; letter-spacing: 1px; display: inline-block;
+            transition: 0.4s; border: 2px solid #fff; cursor: pointer;
+        }
+        .btn-pro:hover {
+            background: var(--neon-blue); border-color: var(--neon-blue); color: #fff;
+            box-shadow: 0 0 30px var(--neon-blue); transform: translateY(-5px);
+        }
+
+        /* --- SECCIÓN CONTACTO --- */
+        .contact-section { padding: 80px 5%; background: #05070a; }
+        .contact-box {
+            max-width: 800px; margin: 0 auto; background: var(--glass);
+            border: 1px solid var(--glass-border); padding: 40px;
+            border-radius: 35px; backdrop-filter: blur(10px);
+        }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .contact-grid input, .contact-grid select, .contact-grid textarea {
+            width: 100%; padding: 14px; background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border); border-radius: 10px; color: white; font-family: inherit;
+        }
+        .contact-grid textarea { grid-column: span 2; }
+        .full-row { grid-column: span 2; }
+
+        /* --- GALERÍA --- */
+        .work-gallery { padding: 60px 5%; background: #080a11; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+        .gallery-item { height: 300px; border-radius: 20px; overflow: hidden; border: 1px solid var(--glass-border); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .gallery-item:hover img { transform: scale(1.1); filter: brightness(0.4); }
+
+        /* --- TRUST --- */
+        .trust-section { padding: 80px 5%; text-align: center; }
+        .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .power-card { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--glass-border); padding: 40px 25px; border-radius: 30px; transition: 0.5s; }
+        .power-card:hover { transform: translateY(-10px); border-color: var(--neon-blue); box-shadow: 0 0 30px rgba(0, 210, 255, 0.15); }
+        .power-card i { font-size: 3.5rem; margin-bottom: 20px; display: block; }
+
+        footer { padding: 40px; text-align: center; border-top: 1px solid var(--glass-border); color: #444; }
+
+        @media (max-width: 768px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-grid textarea, .full-row { grid-column: span 1; }
+            .logo-text h1 { font-size: 1.1rem; }
+            .hero-card h2 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo-container">
+                <img src="img/logo.png" alt="VMB Logo">
+                <div class="logo-text">
+                    <h1>VMB Heating & Cooling</h1>
+                    <span>Pro Service</span>
+                </div>
+            </div>
+            <a href="tel:9152828490" class="btn-pro" style="padding: 10px 18px; font-size: 0.65rem; border-radius: 8px;">LLAMAR AHORA</a>
+        </nav>
+        <div id="promo-ribbon" class="promo-ribbon"></div>
+    </header>
+
+    <div class="nav-spacer" id="main-spacer"></div>
+
+    <a href="https://wa.me/19152828490" class="whatsapp-btn" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <section class="hero">
+        <div class="hero-card">
+            <h2 style="text-transform: uppercase; letter-spacing: -1px; font-size: 2.8rem; line-height: 1.1;">Domina el Clima de tu Hogar</h2>
+            <p style="margin: 15px 0;">Sistemas de alto rendimiento con ingeniería VMB Pro Service. No solo reparamos, optimizamos.</p>
+            <a href="#contact-form" class="btn-pro">Agendar Estimado Gratis</a>
+        </div>
+    </section>
+
+    <section class="work-gallery">
+        <h2 style="text-align:center; margin-bottom:40px; text-transform: uppercase; letter-spacing: 2px;">VMB Elite Portfolio</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item"><img src="img/trabajo1.jpg"></div>
+            <div class="gallery-item"><img src="img/trabajo2.jpg"></div>
+            <div class="gallery-item"><img src="img/trabajo3.jpg"></div>
+            <div class="gallery-item"><img src="img/trabajo4.jpg"></div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact-form">
+        <div class="contact-box">
+            <h2 style="text-align: center; text-transform: uppercase; font-size: 1.8rem;">Solicitar Servicio Elite</h2>
+            <form id="vmbLeadForm">
+                <input type="hidden" id="ID_Proyecto" name="ID_Proyecto">
+                <input type="hidden" id="Fecha" name="Fecha">
+                <input type="hidden" name="Estatus" value="New">
+                <input type="hidden" name="Compania" value="VMB Heating & Cooling">
+                <input type="hidden" id="Descuento_Valor" name="Descuento_Aplicado" value="Ninguno">
+
+                <div class="contact-grid">
+                    <div class="full-row"><input type="text" name="Cliente" placeholder="Nombre Completo" required></div>
+                    <input type="tel" name="Telefono" placeholder="Teléfono" required>
+                    <input type="email" name="Email" placeholder="Email" required>
+                    
+                    <div class="full-row">
+                        <select name="Servicio">
+                            <option value="Reparacion">Reparación de A/C o Calefacción</option>
+                            <option value="Mantenimiento">Mantenimiento Pro-Active</option>
+                            <option value="Instalacion">Instalación Sistema Nuevo</option>
+                            <option value="Ductos">Instalación / Limpieza de Ductos</option>
+                            <option value="Aire">Filtros y Calidad de Aire UV</option>
+                            <option value="Comercial">Servicio Comercial RTU</option>
+                            <option value="Termostato">Smart Thermostats</option>
+                        </select>
+                    </div>
+
+                    <textarea name="Mensaje" rows="4" placeholder="¿En qué podemos ayudarte?"></textarea>
+                    <button type="submit" class="btn-pro full-row">ENVIAR SOLICITUD</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <h2 style="font-size: 2.2rem; font-weight: 900;">¿POR QUÉ ELEGIRNOS?</h2>
+        <div class="trust-grid">
+            <div class="power-card">
+                <i class="fa fa-microchip" style="color: var(--neon-blue);"></i>
+                <h3>Tech-Certified</h3>
+                <p>Diagnóstico láser y software de precisión.</p>
+            </div>
+            <div class="power-card">
+                <i class="fa fa-shield-virus" style="color: var(--neon-orange);"></i>
+                <h3>VMB Insured</h3>
+                <p>Tu propiedad está 100% protegida y blindada.</p>
+            </div>
+            <div class="power-card">
+                <i class="fa fa-gauge-high" style="color: var(--whatsapp-green);"></i>
+                <h3>Turbo Response</h3>
+                <p>Llegamos rápido cuando el clima no perdona.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 VMB HEATING & COOLING | PRO SERVICE</p>
+    </footer>
+
+    <script>
+        const scriptURL = 'https://script.google.com/macros/s/AKfycbw_e8DGq3jL5K0c_SHFpUvheTcV3yVk4Hbxxk-5FVbv3w6shRBDT0Ga2FowOO584Ec/exec'; // <--- LA QUE COPIASTE ARRIBA
+
+document.getElementById('vmbLeadForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    const originalText = btn.innerText;
+    
+    btn.innerText = "ENVIANDO...";
+    btn.disabled = true;
+
+    // Generar Fecha y ID
+    const now = new Date();
+    document.getElementById('ID_Proyecto').value = 'HVA-' + Date.now();
+    document.getElementById('Fecha').value = now.toLocaleString();
+
+    // Usamos esta forma de envío que es más compatible
+    fetch(scriptURL, { 
+        method: 'POST', 
+        mode: 'no-cors', // <--- ESTO EVITA ERRORES DE SEGURIDAD
+        body: new FormData(this)
+    })
+    .then(() => {
+        // Con 'no-cors' no podemos leer la respuesta, pero si llega al Sheets, saltamos aquí
+        alert("¡Recibido! Revisa tu Google Sheet y tu Correo.");
+        document.getElementById('vmbLeadForm').reset();
+        btn.innerText = originalText;
+        btn.disabled = false;
+    })
+    .catch(error => {
+        console.error('Error detallado:', error);
+        alert("Error técnico: " + error.message);
+        btn.disabled = false;
+        btn.innerText = originalText;
+    });
+});
+        
+        async function loadPromo() {
+            const ribbon = document.getElementById('promo-ribbon');
+            const spacer = document.getElementById('main-spacer');
+            const descInput = document.getElementById('Descuento_Valor');
+
+            try {
+                const response = await fetch('img/config.json');
+                const data = await response.json();
+                
+                if(data.promo_activa) {
+                    ribbon.innerHTML = `<i class="fa fa-tag"></i> ${data.texto_promo}`;
+                    ribbon.style.display = 'block';
+                    spacer.style.height = (65 + ribbon.offsetHeight) + "px";
+                    descInput.value = data.valor_descuento;
+                }
+            } catch (error) {
+                // SI ESTÁS EN LOCAL (PC), esto se ejecutará para que veas que funciona
+                console.log("PC Local: Usando promo de respaldo.");
+                ribbon.innerHTML = `<i class="fa fa-certificate"></i> ¡OFERTA LIMITADA: 15% OFF EN TU PRÓXIMO SERVICIO!`;
+                ribbon.style.display = 'block';
+                spacer.style.height = (65 + 40) + "px"; // 65 del nav + 40 de la cintilla
+                descInput.value = "15% Respaldo Local";
+            }
+        }
+        
+        loadPromo();
+
+        document.getElementById('vmbLeadForm').addEventListener('submit', function(e) {
+            const now = new Date();
+            const ts = String(now.getMonth() + 1).padStart(2, '0') + String(now.getDate()).padStart(2, '0') + String(now.getFullYear()).slice(-2) + String(now.getHours()).padStart(2, '0') + String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('ID_Proyecto').value = 'HVA-' + ts;
+            document.getElementById('Fecha').value = now.toISOString().split('T')[0];
+            alert("¡Recibido! Tu ID de servicio es: HVA-" + ts);
+        });
+    </script>
+</body>
+</html>
